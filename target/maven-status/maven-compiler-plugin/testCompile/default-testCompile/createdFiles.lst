@@ -1,5 +1,0 @@
-com/projectaccounts/errorhandling/exceptions/ExceptionTest.class
-com/projectaccounts/errorhandling/handlers/GlobalExceptionHandlerTest$TestController.class
-com/projectaccounts/errorhandling/handlers/GlobalExceptionHandlerTest.class
-com/projectaccounts/errorhandling/filters/RequestIdFilterTest.class
-com/projectaccounts/errorhandling/response/ErrorResponseTest.class
