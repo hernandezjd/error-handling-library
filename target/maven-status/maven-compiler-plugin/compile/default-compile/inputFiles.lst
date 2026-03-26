@@ -1,0 +1,11 @@
+/Users/juandiegohernandez/projects/accounts-project/error-handling-library/src/main/java/com/projectaccounts/errorhandling/config/ErrorHandlingAutoConfiguration.java
+/Users/juandiegohernandez/projects/accounts-project/error-handling-library/src/main/java/com/projectaccounts/errorhandling/exceptions/ConflictException.java
+/Users/juandiegohernandez/projects/accounts-project/error-handling-library/src/main/java/com/projectaccounts/errorhandling/exceptions/CustomException.java
+/Users/juandiegohernandez/projects/accounts-project/error-handling-library/src/main/java/com/projectaccounts/errorhandling/response/ErrorResponse.java
+/Users/juandiegohernandez/projects/accounts-project/error-handling-library/src/main/java/com/projectaccounts/errorhandling/exceptions/ResourceNotFoundException.java
+/Users/juandiegohernandez/projects/accounts-project/error-handling-library/src/main/java/com/projectaccounts/errorhandling/exceptions/ValidationException.java
+/Users/juandiegohernandez/projects/accounts-project/error-handling-library/src/main/java/com/projectaccounts/errorhandling/handlers/GlobalExceptionHandler.java
+/Users/juandiegohernandez/projects/accounts-project/error-handling-library/src/main/java/com/projectaccounts/errorhandling/filters/RequestIdFilter.java
+/Users/juandiegohernandez/projects/accounts-project/error-handling-library/src/main/java/com/projectaccounts/errorhandling/response/ErrorCode.java
+/Users/juandiegohernandez/projects/accounts-project/error-handling-library/src/main/java/com/projectaccounts/errorhandling/exceptions/ForbiddenException.java
+/Users/juandiegohernandez/projects/accounts-project/error-handling-library/src/main/java/com/projectaccounts/errorhandling/exceptions/UnauthorizedException.java
