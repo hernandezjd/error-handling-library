@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -42,6 +43,29 @@ public class GlobalExceptionHandler {
         );
 
         return new ResponseEntity<>(response, ex.getHttpStatus());
+    }
+
+    /**
+     * Handle Spring Security access denied exceptions (403 Forbidden).
+     * Explicitly sets X-Request-Id header to ensure it's present in all error responses.
+     */
+    @ExceptionHandler(AccessDeniedException.class)
+    public ResponseEntity<ErrorResponse> handleAccessDeniedException(
+            AccessDeniedException ex, WebRequest request) {
+        String requestId = RequestIdFilter.getCurrentRequestId();
+        long timestamp = System.currentTimeMillis();
+
+        ErrorResponse response = new ErrorResponse(
+            requestId,
+            ErrorCode.FORBIDDEN,
+            "You do not have permission to perform this action",
+            timestamp
+        );
+
+        return ResponseEntity
+            .status(HttpStatus.FORBIDDEN)
+            .header(RequestIdFilter.REQUEST_ID_HEADER, requestId)
+            .body(response);
     }
 
     /**

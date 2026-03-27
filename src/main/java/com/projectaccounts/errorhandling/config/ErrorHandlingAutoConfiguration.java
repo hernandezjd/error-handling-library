@@ -1,6 +1,7 @@
 package com.projectaccounts.errorhandling.config;
 
 import com.projectaccounts.errorhandling.filters.RequestIdFilter;
+import com.projectaccounts.errorhandling.handlers.CustomAccessDeniedHandler;
 import com.projectaccounts.errorhandling.handlers.GlobalExceptionHandler;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -31,6 +32,15 @@ public class ErrorHandlingAutoConfiguration {
     @Bean
     public GlobalExceptionHandler globalExceptionHandler() {
         return new GlobalExceptionHandler();
+    }
+
+    /**
+     * Register CustomAccessDeniedHandler as a bean for use in SecurityConfig.
+     * This handler ensures 403 responses include proper error structure with request IDs.
+     */
+    @Bean
+    public CustomAccessDeniedHandler customAccessDeniedHandler() {
+        return new CustomAccessDeniedHandler();
     }
 
     /**

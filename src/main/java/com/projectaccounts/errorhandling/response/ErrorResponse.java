@@ -11,20 +11,20 @@ import java.util.Map;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public record ErrorResponse(
     String requestId,
-    String code,
+    String errorCode,
     String message,
     Map<String, String> details,
     long timestamp
 ) {
-    public ErrorResponse(String requestId, String code, String message, long timestamp) {
-        this(requestId, code, message, null, timestamp);
+    public ErrorResponse(String requestId, String errorCode, String message, long timestamp) {
+        this(requestId, errorCode, message, null, timestamp);
     }
 
-    public ErrorResponse(String requestId, ErrorCode code, String message, long timestamp) {
-        this(requestId, code.name(), message, null, timestamp);
+    public ErrorResponse(String requestId, ErrorCode errorCode, String message, long timestamp) {
+        this(requestId, errorCode.name(), message, null, timestamp);
     }
 
-    public ErrorResponse(String requestId, ErrorCode code, String message, Map<String, String> details, long timestamp) {
-        this(requestId, code.name(), message, details, timestamp);
+    public ErrorResponse(String requestId, ErrorCode errorCode, String message, Map<String, String> details, long timestamp) {
+        this(requestId, errorCode.name(), message, details, timestamp);
     }
 }
