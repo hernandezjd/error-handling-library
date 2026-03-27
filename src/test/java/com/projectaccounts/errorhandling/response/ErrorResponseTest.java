@@ -18,7 +18,7 @@ class ErrorResponseTest {
         ErrorResponse response = new ErrorResponse(requestId, code, message, timestamp);
 
         assertThat(response.requestId()).isEqualTo(requestId);
-        assertThat(response.code()).isEqualTo(code.name());
+        assertThat(response.errorCode()).isEqualTo(code.name());
         assertThat(response.message()).isEqualTo(message);
         assertThat(response.timestamp()).isEqualTo(timestamp);
         assertThat(response.details()).isNull();
@@ -35,7 +35,7 @@ class ErrorResponseTest {
         ErrorResponse response = new ErrorResponse(requestId, code, message, details, timestamp);
 
         assertThat(response.requestId()).isEqualTo(requestId);
-        assertThat(response.code()).isEqualTo(code.name());
+        assertThat(response.errorCode()).isEqualTo(code.name());
         assertThat(response.message()).isEqualTo(message);
         assertThat(response.details()).isEqualTo(details);
         assertThat(response.timestamp()).isEqualTo(timestamp);
@@ -51,7 +51,7 @@ class ErrorResponseTest {
         ErrorResponse response = new ErrorResponse(requestId, code, message, timestamp);
 
         assertThat(response.requestId()).isEqualTo(requestId);
-        assertThat(response.code()).isEqualTo(code);
+        assertThat(response.errorCode()).isEqualTo(code);
         assertThat(response.message()).isEqualTo(message);
         assertThat(response.timestamp()).isEqualTo(timestamp);
     }
