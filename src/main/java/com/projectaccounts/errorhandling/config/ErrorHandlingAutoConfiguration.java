@@ -17,7 +17,6 @@ import org.springframework.web.filter.OncePerRequestFilter;
  * Automatically registers:
  * - GlobalExceptionHandler for centralized error handling
  * - RequestIdFilter for request ID generation and tracking
- * - ContentTypeNormalizationFilter for lenient Content-Type header handling
  * - CORS configuration and CorsFilter for proper CORS headers on all responses (including errors)
  *
  * No configuration needed in client services — just add the dependency.
