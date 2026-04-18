@@ -1,5 +1,7 @@
 package com.projectaccounts.errorhandling.config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.projectaccounts.errorhandling.filters.InternalHeaderAuthFilter;
 import com.projectaccounts.errorhandling.filters.RequestIdFilter;
 import com.projectaccounts.errorhandling.handlers.CustomAccessDeniedHandler;
 import com.projectaccounts.errorhandling.handlers.GlobalExceptionHandler;
@@ -68,6 +70,14 @@ public class ErrorHandlingAutoConfiguration {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;
+    }
+
+    /**
+     * Register InternalHeaderAuthFilter to populate Spring Security context from gateway headers.
+     */
+    @Bean
+    public InternalHeaderAuthFilter internalHeaderAuthFilter() {
+        return new InternalHeaderAuthFilter(new ObjectMapper());
     }
 
     /**
