@@ -6,6 +6,7 @@ import com.projectaccounts.errorhandling.filters.RequestIdFilter;
 import com.projectaccounts.errorhandling.handlers.CustomAccessDeniedHandler;
 import com.projectaccounts.errorhandling.handlers.GlobalExceptionHandler;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.cors.CorsConfiguration;
@@ -56,8 +57,10 @@ public class ErrorHandlingAutoConfiguration {
     /**
      * Register CorsConfigurationSource bean using CorsProperties.
      * Applies CORS configuration to all paths (/**).
+     * Only active when app.cors.enabled=true (default). Services behind the gateway set this to false.
      */
     @Bean
+    @ConditionalOnProperty(name = "app.cors.enabled", havingValue = "true", matchIfMissing = true)
     public CorsConfigurationSource corsConfigurationSource(CorsProperties corsProperties) {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(corsProperties.getAllowedOrigins());
@@ -84,8 +87,10 @@ public class ErrorHandlingAutoConfiguration {
      * Register CorsFilter bean to ensure CORS headers are applied to ALL responses,
      * including error responses (403, 401, 500, etc.).
      * This must run BEFORE Spring Security filters to work correctly.
+     * Only active when app.cors.enabled=true (default). Services behind the gateway set this to false.
      */
     @Bean
+    @ConditionalOnProperty(name = "app.cors.enabled", havingValue = "true", matchIfMissing = true)
     public CorsFilter corsFilter(CorsConfigurationSource corsConfigurationSource) {
         return new CorsFilter(corsConfigurationSource);
     }
