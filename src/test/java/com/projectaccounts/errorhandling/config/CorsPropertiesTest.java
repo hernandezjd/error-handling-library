@@ -23,8 +23,8 @@ class CorsPropertiesTest {
     }
 
     @Test
-    void shouldDefaultEnabledToTrue() {
-        assertThat(corsProperties.isEnabled()).isTrue();
+    void shouldDefaultEnabledToFalse() {
+        assertThat(corsProperties.isEnabled()).isFalse();
     }
 
     @Test
