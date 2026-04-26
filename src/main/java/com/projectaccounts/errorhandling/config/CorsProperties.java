@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 @Component
 @ConfigurationProperties(prefix = "app.cors")
 public class CorsProperties {
-    private boolean enabled = true;
+    private boolean enabled = false;
     private List<String> allowedOrigins = Arrays.asList("http://localhost:5173", "http://localhost:3000");
     private List<String> allowedMethods = Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH");
     private List<String> allowedHeaders = Arrays.asList("*");
