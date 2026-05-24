@@ -1,1 +1,1 @@
-com.projectaccounts.errorhandling.config.ErrorHandlingAutoConfiguration
+io.orkidea.errorhandling.config.ErrorHandlingAutoConfiguration
