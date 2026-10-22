@@ -9,6 +9,10 @@ import org.springframework.mock.web.MockFilterChain;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.jwt.Jwt;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
+
+import java.time.Instant;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -56,6 +60,24 @@ class InternalHeaderAuthFilterTest {
         filter.doFilter(request, new MockHttpServletResponse(), new MockFilterChain());
 
         assertThat(SecurityContextHolder.getContext().getAuthentication()).isNull();
+    }
+
+    @Test
+    void shouldKeepTheJwtAuthentication_whenXUserIdHeaderPresent() throws Exception {
+        // The gateway forwards the Bearer token and the X-User-* headers. Services that read the
+        // token (for example to get the caller's email) need the Jwt principal, so it must survive.
+        Jwt jwt = Jwt.withTokenValue("caller-token").header("alg", "none").claim("sub", "user-123")
+                .issuedAt(Instant.now()).expiresAt(Instant.now().plusSeconds(300)).build();
+        JwtAuthenticationToken jwtAuth = new JwtAuthenticationToken(jwt);
+        SecurityContextHolder.getContext().setAuthentication(jwtAuth);
+
+        MockHttpServletRequest request = new MockHttpServletRequest("PUT", "/users/me/active-organization");
+        request.addHeader("X-User-Id", "user-123");
+        request.addHeader("X-User-Name", "johndoe");
+
+        filter.doFilter(request, new MockHttpServletResponse(), new MockFilterChain());
+
+        assertThat(SecurityContextHolder.getContext().getAuthentication()).isSameAs(jwtAuth);
     }
 
     @Test

@@ -8,6 +8,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
@@ -26,8 +27,12 @@ public class InternalHeaderAuthFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {
         String userId = request.getHeader("X-User-Id");
+        // A JWT authentication (the caller's token, forwarded by the gateway) is kept as is: services read
+        // claims from it. This filter only fills in the context when there is no JWT authentication.
+        boolean jwtAuthenticated = SecurityContextHolder.getContext().getAuthentication()
+                instanceof JwtAuthenticationToken;
 
-        if (userId != null && !userId.isBlank()) {
+        if (userId != null && !userId.isBlank() && !jwtAuthenticated) {
             String userName = request.getHeader("X-User-Name");
             List<String> workspaces = parseList(request.getHeader("X-User-Workspaces"));
             List<String> globalActions = parseList(request.getHeader("X-User-Global-Actions"));
